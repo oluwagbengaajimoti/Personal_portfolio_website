@@ -46,3 +46,80 @@ questions.forEach(function (question) {
         question.classList.toggle("show-text");
     });
 });
+
+// Collection of form into google spreadsheet
+
+document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(e.target);
+  
+    fetch(e.target.action, {
+      method: 'POST',
+      body: JSON.stringify(Object.fromEntries(formData)),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'no-cors',
+    })
+    .then(response => {
+        console.log(response);
+        window.location.href = 'index.html';
+      })
+      .catch(error => {
+        console.error(error);
+        // Handle errors here
+      });
+
+  });
+  
+
+  // Review section
+  let currentReview = 0;
+
+  function showReview(n) {
+    const reviews = document.querySelectorAll('.review');
+    for (let i = 0; i < reviews.length; i++) {
+      reviews[i].style.display = 'none';
+    }
+
+    for (let i = n; i < n + 4 && i < reviews.length; i++) {
+      reviews[i].style.display = 'block';
+    }
+  }
+
+  function nextReview() {
+    currentReview += 4;
+    showReview(currentReview);
+  }
+
+  function prevReview() {
+    currentReview -= 4;
+    showReview(currentReview);
+  }
+
+  const reviews = document.querySelectorAll('.review');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  // Initially show the first three reviews
+  showReview(currentReview);
+
+  // Disable the "Previous" button initially
+  prevBtn.disabled = true;
+
+  // Add event listeners for "Previous" and "Next" buttons
+  prevBtn.addEventListener('click', () => {
+    prevReview();
+    nextBtn.disabled = false;
+    if (currentReview === 0) {
+      prevBtn.disabled = true;
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    nextReview();
+    prevBtn.disabled = false;
+    if (currentReview + 4 >= reviews.length) {
+      nextBtn.disabled = true;
+    }
+  });

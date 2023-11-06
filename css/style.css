@@ -666,12 +666,47 @@ Questions
 	display: none;
   }
 
-
   .list li {
 	color: #ababab;
 	font-size: 14px;
 }
+	  /* Review Buttons Styles */
+	  .review {
+		display: none;
+	  }
+	  .review-btn {
+		text-align: center;
+		margin-top: 50px;
+	  }
   
+	  .review-btn button {
+		background-color: #ff004f;
+		color: #fff;
+		border: none;
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		font-size: 1.2rem;
+		margin: 0 10px;
+	  }
+  
+	  .review-btn button[disabled] {
+		background-color: #ccc;
+		cursor: not-allowed;
+	  }
+  
+	  .review-btn .solid-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+	  }
+  
+	  .review-btn i {
+		font-size: 1rem;
+	  }
+
 
 
 
